@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIライター協会</title>
+    
+    <!-- Tailwind CSSを読み込み -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts (Noto Serif JP) を読み込み -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* フォントを「Noto Serif JP」に統一 */
+        body {
+            font-family: 'Noto Serif JP', serif;
+        }
+    </style>
+</head>
+<body>
+
+<script src="./assets/js/main.js"></script>
+
+    <!-- メインコンテンツ -->
+    <main>
+        <!-- ヒーローセクション -->
+        <section class="relative bg-blue-900 text-white">
+            <div class="absolute inset-0">
+                <img src="https://placehold.co/1600x600/000033/FFFFFF?text=AI+and+Humanity" alt="背景画像" class="w-full h-full object-cover opacity-20">
+            </div>
+            <div class="relative container mx-auto px-6 py-32 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold leading-tight">AIと共創する、言葉の未来。</h2>
+                <p class="mt-4 text-lg md:text-xl text-gray-300">私たちは、AIライティング技術の健全な発展と、書き手の価値向上を目指す団体です。</p>
+            </div>
+        </section>
+
+        <!-- お知らせセクション -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl font-bold text-center mb-10">重要なお知らせ</h3>
+                <div class="max-w-3xl mx-auto border-t border-gray-200">
+                    <article class="py-6 border-b border-gray-200">
+                        <a href="#" class="block group">
+                            <p class="text-gray-500 text-sm">2025.07.31</p>
+                            <h4 class="font-bold text-lg mt-1 group-hover:text-blue-800 transition duration-300">第一回「AIライター検定」申込受付開始のご案内</h4>
+                        </a>
+                    </article>
+                    <article class="py-6 border-b border-gray-200">
+                        <a href="#" class="block group">
+                            <p class="text-gray-500 text-sm">2025.07.15</p>
+                            <h4 class="font-bold text-lg mt-1 group-hover:text-blue-800 transition duration-300">公式サイトを正式にオープンいたしました。</h4>
+                        </a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 私たちのミッションセクション -->
+        <section class="py-20 bg-gray-100">
+            <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <img src="https://placehold.co/600x400/334155/FFFFFF?text=Our+Mission" alt="ミッションを示す画像" class="rounded-lg shadow-xl">
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-3xl font-bold mb-4">私たちのミッション</h3>
+                    <p class="mb-6 leading-relaxed text-base">AIライター協会は、AI生成文章の編集・推敲・構成スキルを評価・育成する団体です。検定制度やトレーニングを通じて、実務で役立つAIライティングの活用力を可視化します。</p>
+                    <a href="./about.html" class="inline-block bg-blue-800 text-white px-8 py-3 rounded-md hover:bg-blue-900 transition duration-300 font-bold">協会について詳しく</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 事業内容セクション -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl font-bold text-center mb-12">主な事業内容</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-md text-center flex flex-col">
+                        <h4 class="text-xl font-bold mb-3 flex-grow">AIライター検定の実施</h4>
+                        <p class="text-gray-600 leading-relaxed">AI時代に必要な文章力を客観的に評価・認定する検定制度です。</p>
+                    </div>
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-md text-center flex flex-col">
+                        <h4 class="text-xl font-bold mb-3 flex-grow">認定ライター制度</h4>
+                        <p class="text-gray-600 leading-relaxed">プロフェッショナルなライターとしての知識と技術を体系的に習得します。</p>
+                    </div>
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-md text-center flex flex-col">
+                        <h4 class="text-xl font-bold mb-3 flex-grow">文章表現に関するコラム発信</h4>
+                        <p class="text-gray-600 leading-relaxed">AIライティングに関する知見やベストプラクティスを共有します。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 新着コラムセクション -->
+        <section class="py-20 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl font-bold text-center mb-12">新着コラム</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- コラム記事 1 -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <a href="./articles/aila-is-best-partner.html" class="block group">
+                            <img src="https://placehold.co/600x400/5678A9/FFFFFF?text=Column+1" alt="コラム1のサムネイル" class="w-full h-48 object-cover group-hover:opacity-80 transition-opacity">
+                            <div class="p-6">
+                                <h4 class="font-bold text-lg mb-2 group-hover:text-blue-800">AIは「壁打ち相手」として最強のツールである</h4>
+                                <p class="text-gray-600 text-sm leading-relaxed">AIは文章を生成するだけではありません。アイデア出しや構成案の検討など、思考のパートナーとして活用することで…</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- コラム記事 2 -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <a href="./articles/ethics-for-writer.html" class="block group">
+                            <img src="https://placehold.co/600x400/A95678/FFFFFF?text=Column+2" alt="コラム2のサムネイル" class="w-full h-48 object-cover group-hover:opacity-80 transition-opacity">
+                            <div class="p-6">
+                                <h4 class="font-bold text-lg mb-2 group-hover:text-blue-800">生成AI時代のライターに求められる倫理観とは</h4>
+                                <p class="text-gray-600 text-sm leading-relaxed">情報の正確性、著作権、そして差別的な表現。AIライティングにおいて、私たちが注意すべき倫理的な課題について…</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- コラム記事 3 -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <a href="./articles/prompt-for-interview.html" class="block group">
+                            <img src="https://placehold.co/600x400/78A956/FFFFFF?text=Column+3" alt="コラム3のサムネイル" class="w-full h-48 object-cover group-hover:opacity-80 transition-opacity">
+                            <div class="p-6">
+                                <h4 class="font-bold text-lg mb-2 group-hover:text-blue-800">インタビュー記事作成を効率化するプロンプト術</h4>
+                                <p class="text-gray-600 text-sm leading-relaxed">文字起こしから要約、そして記事構成案の作成まで。インタビュー記事の制作プロセスをAIで劇的に効率化する…</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="text-center mt-12">
+                    <a href="./column.html" class="inline-block bg-blue-800 text-white px-10 py-3 rounded-md hover:bg-blue-900 transition duration-300 font-bold">コラム一覧へ</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッターセクション -->
+    <footer class="bg-blue-900 text-white">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h4 class="text-lg font-bold mb-4">AIライター協会</h4>
+                    <p class="text-sm text-gray-300 leading-relaxed">運営事務局<br>〒530-0001 大阪府大阪市北区梅田一丁目2番2号<br>大阪駅前第2ビル2階5-6号室</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">サイトマップ</h4>
+                    <ul class="space-y-2 text-sm font-bold">
+                        <li><a href="./about.html" class="text-gray-300 hover:text-white">協会について</a></li>
+                        <li><a href="./membership.html" class="text-gray-300 hover:text-white">入会案内</a></li>
+                        <li><a href="./column.html" class="text-gray-300 hover:text-white">コラム</a></li>
+                        <li><a href="./contact.html" class="text-gray-300 hover:text-white">お問い合わせ</a></li>
+                        <li><a href="./privacy.html" class="text-gray-300 hover:text-white">プライバシーポリシー</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">ニュースレター登録</h4>
+                    <p class="text-sm text-gray-300 mb-4">最新情報やイベント案内をお届けします。</p>
+                    <form>
+                        <div class="flex">
+                            <input type="email" placeholder="メールアドレス" class="w-full px-4 py-2 rounded-l-md text-gray-800 focus:outline-none">
+                            <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 font-bold">登録</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-blue-800 pt-6 text-center text-sm">
+                <p>&copy; 2025 AIライター協会. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

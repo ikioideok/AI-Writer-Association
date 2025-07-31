@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>コラム - AIライター協会</title>
+    
+    <!-- Tailwind CSSを読み込み -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts (Noto Serif JP) を読み込み -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* フォントを「Noto Serif JP」に統一 */
+        body {
+            font-family: 'Noto Serif JP', serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <script src="assets/js/main.js"></script>
+
+    <!-- メインコンテンツ -->
+    <main>
+        <!-- ページタイトルセクション -->
+        <section class="bg-white py-8 shadow-sm">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-gray-900">コラム</h2>
+                <p class="text-sm mt-2 text-gray-500">ホーム &gt; コラム</p>
+            </div>
+        </section>
+
+        <!-- コラム一覧セクション -->
+        <section class="py-20 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- コラム記事 1 -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <a href="articles/aila-is-best-partner.html" class="block group">
+                            <img src="https://placehold.co/600x400/5678A9/FFFFFF?text=Column+1" alt="コラム1のサムネイル" class="w-full h-48 object-cover group-hover:opacity-80 transition-opacity">
+                            <div class="p-6">
+                                <p class="text-sm text-gray-500 mb-2">2025.07.31</p>
+                                <h4 class="font-bold text-lg mb-2 group-hover:text-blue-800">AIは「壁打ち相手」として最強のツールである</h4>
+                                <p class="text-gray-600 text-sm leading-relaxed">AIは文章を生成するだけではありません。アイデア出しや構成案の検討など、思考のパートナーとして活用することで…</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- コラム記事 2 -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <a href="articles/ethics-for-writer.html" class="block group">
+                            <img src="https://placehold.co/600x400/A95678/FFFFFF?text=Column+2" alt="コラム2のサムネイル" class="w-full h-48 object-cover group-hover:opacity-80 transition-opacity">
+                            <div class="p-6">
+                                <p class="text-sm text-gray-500 mb-2">2025.07.25</p>
+                                <h4 class="font-bold text-lg mb-2 group-hover:text-blue-800">生成AI時代のライターに求められる倫理観とは</h4>
+                                <p class="text-gray-600 text-sm leading-relaxed">情報の正確性、著作権、そして差別的な表現。AIライティングにおいて、私たちが注意すべき倫理的な課題について…</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- コラム記事 3 -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <a href="articles/prompt-for-interview.html" class="block group">
+                            <img src="https://placehold.co/600x400/78A956/FFFFFF?text=Column+3" alt="コラム3のサムネイル" class="w-full h-48 object-cover group-hover:opacity-80 transition-opacity">
+                            <div class="p-6">
+                                <p class="text-sm text-gray-500 mb-2">2025.07.20</p>
+                                <h4 class="font-bold text-lg mb-2 group-hover:text-blue-800">インタビュー記事作成を効率化するプロンプト術</h4>
+                                <p class="text-gray-600 text-sm leading-relaxed">文字起こしから要約、そして記事構成案の作成まで。インタビュー記事の制作プロセスをAIで劇的に効率化する…</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- 他のコラム記事も同様に articles/xxx.html へリンクする -->
+                </div>
+
+                <!-- ページネーション -->
+                <div class="flex justify-center mt-12">
+                    <nav class="flex items-center space-x-2" aria-label="Pagination">
+                        <a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-bold text-gray-500 hover:bg-gray-200 rounded-md">前へ</a>
+                        <a href="#" aria-current="page" class="relative z-10 inline-flex items-center bg-blue-800 px-4 py-2 text-sm font-bold text-white rounded-md">1</a>
+                        <a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-bold text-gray-500 hover:bg-gray-200 rounded-md">2</a>
+                        <a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-bold text-gray-500 hover:bg-gray-200 rounded-md">3</a>
+                        <a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-bold text-gray-500 hover:bg-gray-200 rounded-md">次へ</a>
+                    </nav>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッターセクション -->
+    <footer class="bg-blue-900 text-white">
+        <div class="container mx-auto px-6 py-12">
+            <!-- ... フッター内容は省略 ... -->
+        </div>
+    </footer>
+
+    <script>
+        // ... スクリプトは省略 ...
+    </script>
+
+</body>
+</html>

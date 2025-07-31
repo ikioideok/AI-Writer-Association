@@ -1,0 +1,159 @@
+/* ---
+  Design Concept: "先進性と重厚"
+  Palette: Dark Charcoal, Off-White, Emerald Green
+  Style: Dark Theme, Flat, Futuristic
+--- */
+
+/* --- 基本設定 & 変数 --- */
+:root {
+    --color-background: #111827; /* ダークチャコール */
+    --color-surface: #1f2937;    /* カードなどの背景色 */
+    --color-text-main: #f9fafb;     /* オフホワイト */
+    --color-text-light: #9ca3af;   /* 薄いグレー */
+    --color-accent: #10b981;       /* エメラルドグリーン */
+    --color-border: #374151;       /* 境界線 */
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 500; /* ダークモードでの可読性を考慮し少し太めに */
+    line-height: 1.8;
+    color: var(--color-text-main);
+    background-color: var(--color-background);
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4 {
+    margin: 0 0 0.5em 0;
+    color: var(--color-text-main);
+    font-weight: 700;
+}
+
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+a:hover {
+    color: #34d399; /* ホバー時に少し明るく */
+}
+
+/* --- ヘッダー --- */
+header {
+    background-color: rgba(17, 24, 39, 0.8); /* 半透明の背景 */
+    backdrop-filter: blur(10px); /* すりガラス効果 */
+    padding: 20px 0;
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header .container { display: flex; justify-content: space-between; align-items: center; }
+header .logo a { text-decoration: none; }
+header .logo h1 { font-size: 1.5em; color: var(--color-text-main); }
+header .english-name { font-size: 0.75em; color: var(--color-text-light); }
+header nav ul { margin: 0; padding: 0; list-style: none; display: flex; }
+header nav li { margin-left: 32px; }
+header nav a { color: var(--color-text-main); font-weight: 700; font-size: 0.9em; }
+
+/* --- ヒーローセクション --- */
+#hero {
+    text-align: center;
+    padding: 120px 40px;
+}
+#hero h2 {
+    font-size: 3em;
+    line-height: 1.5;
+    background: -webkit-linear-gradient(45deg, var(--color-accent), #f9fafb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+#hero p { font-size: 1.1em; max-width: 680px; margin: 30px auto 0 auto; color: var(--color-text-light); }
+
+/* --- 各セクション共通 --- */
+main section {
+    padding: 100px 0;
+    border-bottom: 1px solid var(--color-border);
+}
+main section:last-of-type { border-bottom: none; }
+main h3 { font-size: 2.2em; text-align: center; margin-bottom: 60px; }
+
+/* --- 協会について --- */
+.mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+.mission-item h4 { font-size: 1.3em; margin-bottom: 15px; }
+.mission-item p { color: var(--color-text-light); }
+
+/* --- 事業内容 --- */
+.service-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+.service-item {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 30px;
+    border-radius: 8px;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+.service-item:hover {
+    background-color: #374151;
+    border-color: var(--color-accent);
+}
+.service-item h4 { font-size: 1.3em; margin-bottom: 15px; color: var(--color-accent); }
+.service-item p { margin: 0; color: var(--color-text-light); }
+
+/* --- お知らせ --- */
+.news-list { max-width: 800px; margin: 0 auto; }
+.news-list article {
+    display: flex;
+    padding: 25px 0;
+    border-bottom: 1px solid var(--color-border);
+}
+.news-list time { color: var(--color-text-light); margin-right: 30px; min-width: 90px; }
+.news-list a { color: var(--color-text-main); font-weight: 500; font-size: 1.05em; }
+.news-list a:hover { color: var(--color-accent); }
+
+/* --- ボタン --- */
+.text-center { text-align: center; margin-top: 60px; }
+.btn {
+    display: inline-block;
+    padding: 14px 45px;
+    background-color: var(--color-accent);
+    color: #111827;
+    border: 2px solid var(--color-accent);
+    border-radius: 6px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+.btn:hover {
+    background-color: transparent;
+    color: var(--color-accent);
+}
+.btn-secondary {
+    background: transparent;
+    color: var(--color-text-light);
+    border-color: var(--color-border);
+}
+.btn-secondary:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+/* --- フッター --- */
+footer {
+    background-color: #111827;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-light);
+    text-align: center;
+    padding: 40px 0;
+    font-size: 0.9em;
+}
+footer p { margin: 0; }
