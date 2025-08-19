@@ -17,10 +17,10 @@
         .article-content a { color: #1d4ed8; text-decoration: underline; }
         .article-content a:hover { color: #1e3a8a; }
     </style>
-</head>
-<body class="bg-gray-100 text-gray-800">
+ </head>
+<body class="bg-gray-100 text-gray-800" data-base_path=".." >
 
-    <div id="header-placeholder"></div>
+    
 
     <main>
         <section class="bg-white py-8 shadow-sm">
@@ -117,12 +117,7 @@
         </section>
     </main>
 
-    <div id="footer-placeholder"></div>
-
-    <script>
-        fetch('../_header.html').then(r => r.text()).then(d => document.getElementById('header-placeholder').innerHTML = d);
-        fetch('../_footer.html').then(r => r.text()).then(d => document.getElementById('footer-placeholder').innerHTML = d);
-    </script>
+    <script src="../assets/js/main.js"></script>
 
 </body>
 </html>
