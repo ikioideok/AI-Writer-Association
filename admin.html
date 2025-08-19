@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>記事投稿フォーム - AIライター協会</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Serif JP', serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-6 py-12">
+        <h1 class="text-3xl font-bold text-gray-900 mb-8">新しいコラムを投稿する</h1>
+
+        <form id="article-form" class="bg-white p-8 rounded-lg shadow-lg">
+            <div class="mb-6">
+                <label for="title" class="block text-gray-700 text-sm font-bold mb-2">タイトル</label>
+                <input type="text" id="title" name="title" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            </div>
+
+            <div class="mb-6">
+                <label for="date" class="block text-gray-700 text-sm font-bold mb-2">公開日</label>
+                <input type="text" id="date" name="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="YYYY.MM.DD" required>
+            </div>
+
+            <div class="mb-6">
+                <label for="description" class="block text-gray-700 text-sm font-bold mb-2">概要</label>
+                <textarea id="description" name="description" rows="3" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required></textarea>
+            </div>
+
+            <div class="mb-6">
+                <label for="imagePath" class="block text-gray-700 text-sm font-bold mb-2">画像パス</label>
+                <input type="text" id="imagePath" name="imagePath" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="../assets/images/your-image.jpg" required>
+            </div>
+
+            <div class="mb-6">
+                <label for="content" class="block text-gray-700 text-sm font-bold mb-2">本文 (Markdown対応)</label>
+                <textarea id="content" name="content" rows="15" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required></textarea>
+            </div>
+
+            <div class="flex items-center justify-between">
+                <button type="submit" class="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    投稿する
+                </button>
+            </div>
+        </form>
+        <div id="response-message" class="mt-4"></div>
+    </div>
+
+    <script src="/assets/js/admin.js"></script>
+</body>
+</html>

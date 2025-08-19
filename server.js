@@ -1,63 +1,41 @@
-const inquirer = require('inquirer');
+const express = require('express');
 const fs = require('fs').promises;
 const path = require('path');
 const { marked } = require('marked');
 
-const articleTemplatePath = path.join(__dirname, '..', 'article_templete.html');
-const columnPath = path.join(__dirname, '..', 'column.html');
-const articlesDirPath = path.join(__dirname, '..', 'articles');
+const app = express();
+const port = 3000;
 
-// 質問を定義
-const questions = [
-    {
-        type: 'input',
-        name: 'title',
-        message: '記事のタイトルを入力してください:',
-        validate: input => !!input || 'タイトルは必須です。'
-    },
-    {
-        type: 'input',
-        name: 'date',
-        message: '公開日 (YYYY.MM.DD) を入力してください:',
-        default: new Date().toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.'),
-        validate: input => /^\d{4}\.\d{2}\.\d{2}$/.test(input) || '日付は YYYY.MM.DD 形式で入力してください。'
-    },
-    {
-        type: 'input',
-        name: 'description',
-        message: '記事の概要を入力してください:',
-        validate: input => !!input || '概要は必須です。'
-    },
-    {
-        type: 'input',
-        name: 'imagePath',
-        message: '記事のメイン画像のパスを入力してください (例: ../assets/images/new-image.jpeg):',
-        validate: input => !!input || '画像パスは必須です。'
-    },
-    {
-        type: 'editor',
-        name: 'content',
-        message: '記事の本文をMarkdownで記述してください (エディタが起動します):',
-        validate: input => !!input || '本文は必須です。'
-    }
-];
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname)));
+
+// Paths
+const articleTemplatePath = path.join(__dirname, 'article_templete.html');
+const columnPath = path.join(__dirname, 'column.html');
+const articlesDirPath = path.join(__dirname, 'articles');
 
 // ファイル名を生成する関数
 const slugify = (text) => {
     return text.toString().toLowerCase()
-        .replace(/\s+/g, '-')           // スペースを-に置換
-        .replace(/[^\w\-]+/g, '')       // 英数字、アンダースコア、ハイフン以外を削除
-        .replace(/\-\-+/g, '-')         // 連続するハイフンを1つに
-        .replace(/^-+/, '')             // 先頭のハイフンを削除
-        .replace(/-+$/, '');            // 末尾のハイフンを削除
+        .replace(/\s+/g, '-')
+        .replace(/[^\w\-]+/g, '')
+        .replace(/\-\-+/g, '-')
+        .replace(/^-+/, '')
+        .replace(/-+$/, '');
 };
 
-async function createArticle() {
+// API endpoint for creating articles
+app.post('/api/articles', async (req, res) => {
     try {
-        const answers = await inquirer.prompt(questions);
-        const { title, date, description, imagePath, content } = answers;
+        const { title, date, description, imagePath, content } = req.body;
 
-        // 1. 新しい記事HTMLを作成
+        if (!title || !date || !description || !imagePath || !content) {
+            return res.status(400).json({ message: 'すべてのフィールドを入力してください。' });
+        }
+
+        // 1. Create new article HTML
         const slug = slugify(title);
         const newArticleFileName = `${slug}.html`;
         const newArticleFilePath = path.join(articlesDirPath, newArticleFileName);
@@ -75,16 +53,15 @@ async function createArticle() {
             .replace(/<div class="article-content text-gray-800">[\s\S]*?<\/div>/, `<div class="article-content text-gray-800">${contentHtml}</div>`);
 
         await fs.writeFile(newArticleFilePath, newArticleContent);
-        console.log(`✅ 記事を作成しました: ${newArticleFilePath}`);
 
-        // 2. column.htmlを更新
+        // 2. Update column.html
         const columnHtml = await fs.readFile(columnPath, 'utf-8');
 
         const newColumnEntry = `
                     <!-- コラム記事 -->
                     <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                         <a href="articles/${newArticleFileName}" class="block group">
-                            <img src="${imagePath.replace('../', '')}" alt="${title}" class="w-full h-48 object-cover group-hover:opacity-80 transition-opacity">
+                            <img src="${imagePath.startsWith('../') ? imagePath.substring(3) : imagePath}" alt="${title}" class="w-full h-48 object-cover group-hover:opacity-80 transition-opacity">
                             <div class="p-6">
                                 <p class="text-sm text-gray-500 mb-2">${date}</p>
                                 <h4 class="font-bold text-lg mb-2 group-hover:text-blue-800">${title}</h4>
@@ -102,11 +79,16 @@ async function createArticle() {
             columnHtml.slice(insertionPoint);
 
         await fs.writeFile(columnPath, updatedColumnHtml);
-        console.log(`✅ コラム一覧を更新しました: ${columnPath}`);
+
+        res.status(201).json({ message: '記事が正常に作成されました。', filePath: `/articles/${newArticleFileName}` });
 
     } catch (error) {
-        console.error('❌ エラーが発生しました:', error);
+        console.error('Error creating article:', error);
+        res.status(500).json({ message: 'サーバーエラーが発生しました。' });
     }
-}
+});
 
-createArticle();
+app.listen(port, () => {
+    console.log(`サーバーが http://localhost:${port} で起動しました。`);
+    console.log(`投稿フォームはこちら: http://localhost:${port}/admin.html`);
+});
