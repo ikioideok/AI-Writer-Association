@@ -81,4 +81,54 @@ document.addEventListener('DOMContentLoaded', function() {
                 faqContainer.innerHTML = '<p>FAQの読み込みに失敗しました。</p>';
             });
     }
+
+    const loadNewColumns = () => {
+        const container = document.getElementById('new-columns-container');
+        if (!container) {
+            return;
+        }
+
+        fetch('./column.html')
+            .then(response => {
+                if (!response.ok) throw new Error('Failed to load column.html');
+                return response.text();
+            })
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const articles = doc.querySelectorAll('.grid .bg-white.rounded-lg.shadow-lg.overflow-hidden');
+                let columnsHtml = '';
+                articles.forEach((article, index) => {
+                    if (index >= 3) {
+                        return;
+                    }
+
+                    const tempArticle = article.cloneNode(true);
+                    const link = tempArticle.querySelector('a');
+
+                    if (link) {
+                        const href = link.getAttribute('href');
+                        if (href) {
+                            link.setAttribute('href', `./${href}`);
+                        }
+
+                        const img = link.querySelector('img');
+                        if (img) {
+                            const src = img.getAttribute('src');
+                            if (src && !src.startsWith('http') && !src.startsWith('/')) {
+                                img.setAttribute('src', `./${src}`);
+                            }
+                        }
+                    }
+                    columnsHtml += tempArticle.outerHTML;
+                });
+                container.innerHTML = columnsHtml;
+            })
+            .catch(error => {
+                console.error('Error loading new columns:', error);
+                container.innerHTML = '<p>新着コラムの読み込みに失敗しました。</p>';
+            });
+    };
+
+    loadNewColumns();
 });
