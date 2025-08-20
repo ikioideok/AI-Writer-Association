@@ -8,7 +8,6 @@ const app = express();
 const port = 3000;
 
 // Middleware
-// Note: We don't use express.json() or express.urlencoded() for multipart forms
 app.use(express.static(path.join(__dirname)));
 
 // Multer setup for file uploads
@@ -17,7 +16,6 @@ const storage = multer.diskStorage({
         cb(null, 'assets/images/');
     },
     filename: function (req, file, cb) {
-        // Use original name; could be improved with unique IDs
         cb(null, file.originalname);
     }
 });
@@ -58,17 +56,15 @@ app.post('/api/articles', upload.single('image'), async (req, res) => {
         if (!title || !date || !description || !content || !imageFile) {
             return res.status(400).json({ message: 'すべてのフィールドと画像を入力してください。' });
         }
-
+        
         const imagePath = `../assets/images/${imageFile.filename}`;
 
-        // slugが提供されていればそれを使用し、なければタイトルから生成
         const finalSlug = slug ? slugifyEn(slug) : slugifyJp(title);
-
+        
         if (!finalSlug) {
             return res.status(400).json({ message: '有効なファイル名を生成できませんでした。英語のファイル名を確認するか、タイトルを修正してください。' });
         }
 
-        // 1. Create new article HTML
         const newArticleFileName = `${finalSlug}.html`;
         const newArticleFilePath = path.join(articlesDirPath, newArticleFileName);
 
@@ -86,12 +82,10 @@ app.post('/api/articles', upload.single('image'), async (req, res) => {
 
         await fs.writeFile(newArticleFilePath, newArticleContent);
 
-        // 2. Update column.html
         const columnHtml = await fs.readFile(columnPath, 'utf-8');
-
-        // The image path for column.html needs to be relative to the root
+        
         const columnImagePath = imagePath.replace('../', '');
-
+        
         const newColumnEntry = `
                     <!-- コラム記事 -->
                     <div class="bg-white rounded-lg shadow-lg overflow-hidden">
@@ -107,14 +101,14 @@ app.post('/api/articles', upload.single('image'), async (req, res) => {
 
         const gridEndMarker = '<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">';
         const insertionPoint = columnHtml.indexOf(gridEndMarker) + gridEndMarker.length;
-
-        const updatedColumnHtml =
+        
+        const updatedColumnHtml = 
             columnHtml.slice(0, insertionPoint) +
             newColumnEntry +
             columnHtml.slice(insertionPoint);
 
         await fs.writeFile(columnPath, updatedColumnHtml);
-
+        
         res.status(201).json({ message: '記事が正常に作成されました。', filePath: `/articles/${newArticleFileName}` });
 
     } catch (error) {
