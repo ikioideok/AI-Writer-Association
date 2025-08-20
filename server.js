@@ -2,42 +2,74 @@ const express = require('express');
 const fs = require('fs').promises;
 const path = require('path');
 const { marked } = require('marked');
+const multer = require('multer');
 
 const app = express();
 const port = 3000;
 
 // Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Note: We don't use express.json() or express.urlencoded() for multipart forms
 app.use(express.static(path.join(__dirname)));
+
+// Multer setup for file uploads
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'assets/images/');
+    },
+    filename: function (req, file, cb) {
+        // Use original name; could be improved with unique IDs
+        cb(null, file.originalname);
+    }
+});
+const upload = multer({ storage: storage });
 
 // Paths
 const articleTemplatePath = path.join(__dirname, 'article_templete.html');
 const columnPath = path.join(__dirname, 'column.html');
 const articlesDirPath = path.join(__dirname, 'articles');
 
-// ファイル名を生成する関数
-const slugify = (text) => {
+// 日本語を保持するslugify関数
+const slugifyJp = (text) => {
     return text.toString().toLowerCase()
         .replace(/\s+/g, '-')
-        .replace(/[^\w\-]+/g, '')
+        .replace(/[^\p{L}\p{N}_-]+/gu, '')
         .replace(/\-\-+/g, '-')
         .replace(/^-+/, '')
         .replace(/-+$/, '');
 };
 
-// API endpoint for creating articles
-app.post('/api/articles', async (req, res) => {
-    try {
-        const { title, date, description, imagePath, content } = req.body;
+// 英語用のslugify関数 (安全のため)
+const slugifyEn = (text) => {
+    return text.toString().toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^a-z0-9-]+/g, '')
+        .replace(/\-\-+/g, '-')
+        .replace(/^-+/, '')
+        .replace(/-+$/, '');
+};
 
-        if (!title || !date || !description || !imagePath || !content) {
-            return res.status(400).json({ message: 'すべてのフィールドを入力してください。' });
+
+// API endpoint for creating articles
+app.post('/api/articles', upload.single('image'), async (req, res) => {
+    try {
+        const { title, slug, date, description, content } = req.body;
+        const imageFile = req.file;
+
+        if (!title || !date || !description || !content || !imageFile) {
+            return res.status(400).json({ message: 'すべてのフィールドと画像を入力してください。' });
+        }
+
+        const imagePath = `../assets/images/${imageFile.filename}`;
+
+        // slugが提供されていればそれを使用し、なければタイトルから生成
+        const finalSlug = slug ? slugifyEn(slug) : slugifyJp(title);
+
+        if (!finalSlug) {
+            return res.status(400).json({ message: '有効なファイル名を生成できませんでした。英語のファイル名を確認するか、タイトルを修正してください。' });
         }
 
         // 1. Create new article HTML
-        const slug = slugify(title);
-        const newArticleFileName = `${slug}.html`;
+        const newArticleFileName = `${finalSlug}.html`;
         const newArticleFilePath = path.join(articlesDirPath, newArticleFileName);
 
         const articleTemplate = await fs.readFile(articleTemplatePath, 'utf-8');
@@ -57,11 +89,14 @@ app.post('/api/articles', async (req, res) => {
         // 2. Update column.html
         const columnHtml = await fs.readFile(columnPath, 'utf-8');
 
+        // The image path for column.html needs to be relative to the root
+        const columnImagePath = imagePath.replace('../', '');
+
         const newColumnEntry = `
                     <!-- コラム記事 -->
                     <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                         <a href="articles/${newArticleFileName}" class="block group">
-                            <img src="${imagePath.startsWith('../') ? imagePath.substring(3) : imagePath}" alt="${title}" class="w-full h-48 object-cover group-hover:opacity-80 transition-opacity">
+                            <img src="${columnImagePath}" alt="${title}" class="w-full h-48 object-cover group-hover:opacity-80 transition-opacity">
                             <div class="p-6">
                                 <p class="text-sm text-gray-500 mb-2">${date}</p>
                                 <h4 class="font-bold text-lg mb-2 group-hover:text-blue-800">${title}</h4>

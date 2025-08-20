@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
 
         const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
 
         responseMessage.textContent = '送信中...';
         responseMessage.className = 'mt-4 text-yellow-600';
@@ -24,10 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch('/api/articles', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+                body: formData // Send FormData directly
             });
 
             const result = await response.json();
