@@ -71,9 +71,16 @@ app.post('/api/articles', upload.single('image'), async (req, res) => {
         const articleTemplate = await fs.readFile(articleTemplatePath, 'utf-8');
         const contentHtml = marked(content);
 
+        const articleUrl = `https://a-i-l-a.jp/articles/${newArticleFileName}`;
+        const imageUrl = `https://a-i-l-a.jp/assets/images/${imageFile.filename}`;
+
         const newArticleContent = articleTemplate
             .replace(/<title>.*<\/title>/, `<title>${title} - AIライター協会</title>`)
+            .replace(/<meta property="og:title" content=".*">/, `<meta property="og:title" content="${title} - AIライター協会">`)
             .replace(/<meta name="description" content=".*">/, `<meta name="description" content="${description}">`)
+            .replace(/<meta property="og:description" content=".*">/, `<meta property="og:description" content="${description}">`)
+            .replace('OG_URL_PLACEHOLDER', articleUrl)
+            .replace('OG_IMAGE_PLACEHOLDER', imageUrl)
             .replace(/<p class="text-gray-500 mb-2">.*<\/p>/, `<p class="text-gray-500 mb-2">${date}</p>`)
             .replace(/<h1 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">.*<\/h1>/, `<h1 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">${title}</h1>`)
             .replace(/<p class="text-sm mt-2 text-gray-500">.*<\/p>/, `<p class="text-sm mt-2 text-gray-500"><a href="../index.html" class="hover:underline">ホーム</a> &gt; <a href="../column.html" class="hover:underline">コラム</a> &gt; ${title}</p>`)
